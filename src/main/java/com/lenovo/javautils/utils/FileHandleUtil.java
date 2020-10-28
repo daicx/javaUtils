@@ -27,9 +27,11 @@ public class FileHandleUtil {
 		while((len=is.read(buf))>0) {
 			os.write(buf, 0, len);
 		}
-		if(is!=null)
-		is.close();
-		if(os!=null)
-		os.close();
+		if(is!=null) {
+			is.close();
+		}
+		if(os!=null) {
+			os.close();
+		}
 	}
 }

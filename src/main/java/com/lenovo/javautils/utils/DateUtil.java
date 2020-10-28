@@ -1,35 +1,69 @@
 package com.lenovo.javautils.utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 
 public class DateUtil {
-	/**
-	 * date格式化为:2017-11-12
-	 * @author dcx
-	 * @date 2017年10月31日13:53:12
-	 * @param date
-	 * @return
-	 */
-	public static String getDate(Date date) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String str = sdf.format(date);
-		return str;
-	}
-	
-	/**
-	 * 获取n天前的时间
-	 * @author daicx1
-	 * @date 2018年2月28日 上午10:22:34
-	 * @param date
-	 * @param n
-	 * @return
-	 */
-	public static Date getDayAgoDate(Date date,Integer n) {
-		Calendar now =Calendar.getInstance();  
-		now.setTime(date);  
-		now.set(Calendar.DATE,now.get(Calendar.DATE)-n);
-		return now.getTime();
-	}
+    private static final  String FORMAT_TYPE1 = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 取本月第一天
+     */
+    public static LocalDate firstDayOfThisMonth() {
+        LocalDate today = LocalDate.now();
+        return today.with(TemporalAdjusters.firstDayOfMonth());
+    }
+
+    /**
+     * 取本月第N天
+     */
+    public static LocalDate dayOfThisMonth(int n) {
+        LocalDate today = LocalDate.now();
+        return today.withDayOfMonth(n);
+    }
+
+    /**
+     * 取本月最后一天
+     */
+    public static LocalDate lastDayOfThisMonth() {
+        LocalDate today = LocalDate.now();
+        return today.with(TemporalAdjusters.lastDayOfMonth());
+    }
+
+    /**
+     * 取本月第一天的开始时间
+     */
+    public static LocalDateTime startOfThisMonth() {
+        return LocalDateTime.of(firstDayOfThisMonth(), LocalTime.MIN);
+    }
+
+
+    /**
+     * 取本月最后一天的结束时间
+     */
+    public static LocalDateTime endOfThisMonth() {
+        return LocalDateTime.of(lastDayOfThisMonth(), LocalTime.MAX);
+    }
+    /**
+     * 时间字符串转化为时间戳
+     * @param dateStr
+     * @param format
+     * @return long
+     * @author dcx
+     * @date 2020/10/22 11:43
+     */
+    public static long toInstant(String dateStr,String format){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        LocalDateTime parse = LocalDateTime.parse(dateStr, formatter);
+        return LocalDateTime.from(parse).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    }
+
+    public static void main(String[] args) {
+        long l = toInstant("2020-10-10 10:10:10", FORMAT_TYPE1);
+        System.out.println(l);
+    }
 }

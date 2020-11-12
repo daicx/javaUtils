@@ -1,5 +1,6 @@
 package com.lenovo.javautils.utils;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -60,6 +61,20 @@ public class DateUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         LocalDateTime parse = LocalDateTime.parse(dateStr, formatter);
         return LocalDateTime.from(parse).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    }
+
+    /**
+     * 时间戳格式化为时间
+     * @param million
+     * @param format
+     * @return java.lang.String
+     * @author dcx
+     * @date 2020/11/4 10:44
+     */
+    public static String instantToStr(Long million,String format){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(million), ZoneId.systemDefault());
+        return localDateTime.format(formatter);
     }
 
     public static void main(String[] args) {

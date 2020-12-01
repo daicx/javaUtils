@@ -5,11 +5,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class DateUtil {
     private static final  String FORMAT_TYPE1 = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMAT_TYPE2 = "yyyy-MM-dd HH:mm:ss.SSS";
+    public static final String ZONESTR = "Asia/Shanghai";
+
+    /**
+     * 获取当前时间p
+     *
+     * @param format
+     * @return java.lang.String
+     * @author dcx
+     * @date 2020/9/15 11:50
+     */
+    public static String getCurrentDateTime(String format) {
+        return ZonedDateTime.now(ZoneId.of(ZONESTR)).format(DateTimeFormatter.ofPattern(format));
+    }
+
 
     /**
      * 取本月第一天
@@ -77,8 +96,17 @@ public class DateUtil {
         return localDateTime.format(formatter);
     }
 
+    public static void test(StringBuilder a){
+        a .append( "test");
+    }
+
     public static void main(String[] args) {
         long l = toInstant("2020-10-10 10:10:10", FORMAT_TYPE1);
         System.out.println(l);
+        StringBuilder b = new StringBuilder("a");
+        test(b);
+        System.out.println(b);
+        List<Object> objects = new ArrayList<>();
+        System.out.println(Optional.ofNullable(objects.get(0)));
     }
 }

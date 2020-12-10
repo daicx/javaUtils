@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,21 @@ public class DateUtil {
     private static final  String FORMAT_TYPE1 = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_TYPE2 = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String ZONESTR = "Asia/Shanghai";
+
+    /**
+     * 获取天数差
+     * @param from
+     * @param to
+     * @return long
+     * @author dcx
+     * @date 2020/12/10 11:44
+     */
+    public static long getDaysBetween(String from, String to) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_TYPE1);
+        LocalDate start = LocalDate.parse(from, formatter);
+        LocalDate end = LocalDate.parse(to, formatter);
+        return ChronoUnit.DAYS.between(start, end);
+    }
 
     /**
      * 获取当前时间p

@@ -32,11 +32,11 @@ public class SecretUtil {
     static {
         try {
             ResKeys = createResKeys(RSA_COUNT);
-
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * 公钥加密
@@ -149,6 +149,7 @@ public class SecretUtil {
 
     }
 
+
     // 加密
     public static String aesEncrypt(String sSrc, String sKey) throws Exception {
         if (sKey == null) {
@@ -177,7 +178,8 @@ public class SecretUtil {
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-        byte[] encrypted1 = new BASE64Decoder().decodeBuffer(sSrc);//先用base64解密
+        //先用base64解密
+        byte[] encrypted1 = new BASE64Decoder().decodeBuffer(sSrc);
         byte[] original = cipher.doFinal(encrypted1);
         return new String(original, StandardCharsets.UTF_8);
     }

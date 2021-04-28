@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * //multy thread useTime:7929
  * //single useTime:1054
  * //multy useTime:12320
+ * //single thread useTime:1575
  * 可以证明objectMapper是线程安全的，并且在单例的执行情况下速度执行更快。
  *
  * @author dcx
@@ -21,6 +22,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Slf4j
 public class SingleAndMultTest {
+    private static ThreadPoolExecutor instance = MyThreadPoolExecutor.INSTANCE.getInstance();
 
     @Data
     static class User {
@@ -32,14 +34,14 @@ public class SingleAndMultTest {
         //multy thread useTime:7929
         //single useTime:1054
         //multy useTime:12320
+        //single thread useTime:1575
 //        multiThread();
 //        single();
-        multi();
-
+//        multi();
+        singleThread();
     }
 
     public static void multiThread() throws IOException {
-        ThreadPoolExecutor instance = MyThreadPoolExecutor.INSTANCE.getInstance();
         long l2 = System.currentTimeMillis();
         for (int i = 0; i < 1000000; i++) {
             instance.execute(
@@ -100,5 +102,34 @@ public class SingleAndMultTest {
         }
         //single useTime:977
         log.info("single useTime:{}", System.currentTimeMillis() - l1);
+    }
+
+    public static void singleThread() throws IOException {
+        long l1 = System.currentTimeMillis();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (int i = 0; i < 1000000; i++) {
+            instance.execute(
+                    () -> {
+                        long l = System.currentTimeMillis();
+                        User user = new User();
+                        user.setName("dadadad" + l);
+                        user.setDesc("dadadadadda");
+                        User user1 = null;
+                        try {
+                            String s = objectMapper.writeValueAsString(user);
+                            user1 = objectMapper.readValue(s, User.class);
+                            assert user1.getName().equals("dadadad" + l);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
+
+        }
+        while (instance.getActiveCount() > 0) {
+            System.out.println("getActiveCount:" + instance.getActiveCount());
+        }
+        //single thread useTime:1575
+        log.info("single thread useTime:{}", System.currentTimeMillis() - l1);
     }
 }

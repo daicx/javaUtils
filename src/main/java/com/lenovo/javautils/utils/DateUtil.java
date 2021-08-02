@@ -1,25 +1,18 @@
 package com.lenovo.javautils.utils;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class DateUtil {
-    private static final  String FORMAT_TYPE1 = "yyyy-MM-dd HH:mm:ss";
+    private static final String FORMAT_TYPE1 = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_TYPE2 = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String ZONESTR = "Asia/Shanghai";
 
     /**
      * 获取天数差
+     *
      * @param from
      * @param to
      * @return long
@@ -84,15 +77,17 @@ public class DateUtil {
     public static LocalDateTime endOfThisMonth() {
         return LocalDateTime.of(lastDayOfThisMonth(), LocalTime.MAX);
     }
+
     /**
      * 时间字符串转化为时间戳
+     *
      * @param dateStr
      * @param format
      * @return long
      * @author dcx
      * @date 2020/10/22 11:43
      */
-    public static long toInstant(String dateStr,String format){
+    public static long toInstant(String dateStr, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         LocalDateTime parse = LocalDateTime.parse(dateStr, formatter);
         return LocalDateTime.from(parse).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -100,29 +95,27 @@ public class DateUtil {
 
     /**
      * 时间戳格式化为时间
+     *
      * @param million
      * @param format
      * @return java.lang.String
      * @author dcx
      * @date 2020/11/4 10:44
      */
-    public static String instantToStr(Long million,String format){
+    public static String instantToStr(Long million, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(million), ZoneId.systemDefault());
         return localDateTime.format(formatter);
     }
 
-    public static void test(StringBuilder a){
-        a .append( "test");
+    public static void test(StringBuilder a) {
+        a.append("test");
     }
 
-    public static void main(String[] args) {
-        long l = toInstant("2020-10-10 10:10:10", FORMAT_TYPE1);
-        System.out.println(l);
-        StringBuilder b = new StringBuilder("a");
-        test(b);
-        System.out.println(b);
-        List<Object> objects = new ArrayList<>();
-        System.out.println(Optional.ofNullable(objects.get(0)));
+    public static void main(String[] args) throws InterruptedException {
+        long l = System.nanoTime();
+        Thread.sleep(1000);
+        long l1 = System.nanoTime();
+        System.out.println(l1 - l);
     }
 }

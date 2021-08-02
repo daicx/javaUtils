@@ -17,9 +17,13 @@ public class StringUtil {
         str.append("修改之后的");
     }
 
+    private static String getKey(Object phoneLogId) {
+        return String.format("jrtt.gdt.%s", phoneLogId);
+    }
 
-    
     public static void main(String[] args) {
-        System.out.println((System.currentTimeMillis()+"").length());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("11234");
+        System.out.println(stringBuilder.deleteCharAt(stringBuilder.length() - 1));
     }
 }

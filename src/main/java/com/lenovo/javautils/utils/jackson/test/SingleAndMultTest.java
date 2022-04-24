@@ -2,7 +2,7 @@ package com.lenovo.javautils.utils.jackson.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lenovo.javautils.utils.MyThreadPoolExecutor;
+import com.lenovo.javautils.threads.MyThreadPoolExecutor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

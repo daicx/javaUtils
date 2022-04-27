@@ -2,7 +2,7 @@ package com.lenovo.javautils.utils.jackson.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lenovo.javautils.threads.MyThreadPoolExecutor;
+import com.lenovo.javautils.threads.ThreadPoolUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Slf4j
 public class SingleAndMultTest {
-    private static ThreadPoolExecutor instance = MyThreadPoolExecutor.INSTANCE.getInstance();
+    private static ThreadPoolExecutor instance = ThreadPoolUtil.INSTANCE.getInstance();
 
     @Data
     static class User {

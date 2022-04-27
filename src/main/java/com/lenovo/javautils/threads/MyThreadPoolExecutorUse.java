@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class MyThreadPoolExecutorUse {
 
     public static void submitPool() throws ExecutionException, InterruptedException {
-        ThreadPoolExecutor instance = MyThreadPoolExecutor.INSTANCE.getInstance();
+        ThreadPoolExecutor instance = ThreadPoolUtil.INSTANCE.getInstance();
         for (int i = 0; i < 10; i++) {
             Future<?> submit = instance.submit(() -> {
                 System.out.println("submitPool");
@@ -19,7 +19,7 @@ public class MyThreadPoolExecutorUse {
     }
 
     public static void excPool() {
-        ThreadPoolExecutor instance = MyThreadPoolExecutor.INSTANCE.getInstance();
+        ThreadPoolExecutor instance = ThreadPoolUtil.INSTANCE.getInstance();
         for (int i = 0; i < 10; i++) {
             instance.execute(() -> {
                 System.out.println("excPool");

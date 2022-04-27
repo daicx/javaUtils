@@ -11,16 +11,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @create: 2020-10-25 15:51
  **/
 @Slf4j
-public enum MyThreadPoolExecutor {
+public enum ThreadPoolUtil {
     //创建实例
     INSTANCE;
     private final ThreadPoolExecutor pool;
-    private static final String poolName = MyThreadPoolExecutor.class.getSimpleName();
+    private static final String poolName = ThreadPoolUtil.class.getSimpleName();
 
     private static final ThreadLocal<Long> start = new ThreadLocal<>();
     private static final ThreadLocal<String> currentThreadName = new ThreadLocal<>();
 
-    MyThreadPoolExecutor() {
+    ThreadPoolUtil() {
         pool = new ThreadPoolExecutor(10, 10, 3,
                 TimeUnit.HOURS, new LinkedBlockingQueue<>(200),
                 new MyThreadFactory(), new CustomRejectedExecutionHandler()) {

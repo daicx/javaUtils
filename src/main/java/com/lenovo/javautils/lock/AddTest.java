@@ -1,6 +1,6 @@
 package com.lenovo.javautils.lock;
 
-import com.lenovo.javautils.threads.MyThreadPoolExecutor;
+import com.lenovo.javautils.threads.ThreadPoolUtil;
 import lombok.Data;
 
 import java.util.concurrent.CountDownLatch;
@@ -47,7 +47,7 @@ public class AddTest {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPoolExecutor poolExecutor = MyThreadPoolExecutor.INSTANCE.getInstance();
+        ThreadPoolExecutor poolExecutor = ThreadPoolUtil.INSTANCE.getInstance();
         CountDownLatch countDownLatch = new CountDownLatch(2);
         SelfAdd selfAdd = new SelfAdd();
         poolExecutor.execute(() -> {

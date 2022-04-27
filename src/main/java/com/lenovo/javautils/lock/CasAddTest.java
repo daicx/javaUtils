@@ -1,6 +1,6 @@
 package com.lenovo.javautils.lock;
 
-import com.lenovo.javautils.threads.MyThreadPoolExecutor;
+import com.lenovo.javautils.threads.ThreadPoolUtil;
 import lombok.Getter;
 import lombok.Setter;
 import sun.misc.Unsafe;
@@ -56,7 +56,7 @@ public class CasAddTest {
         System.out.println("offset:" + offset);
         CountDownLatch countDownLatch = new CountDownLatch(10);
         for (int i = 0; i < 10; i++) {
-            MyThreadPoolExecutor.INSTANCE.getInstance().execute(
+            ThreadPoolUtil.INSTANCE.getInstance().execute(
                     () -> {
                         casAddTest.add();
                         countDownLatch.countDown();
